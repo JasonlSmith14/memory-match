@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://c38damsl8g0kn"]
+
+[ext_resource type="Script" uid="uid://dhtfhoqmc3ccn" path="res://rune/rune.gd" id="1_1otdf"]
+
+[sub_resource type="Animation" id="Animation_xr68n"]
+resource_name = "flip"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"swap_texture"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_epus0"]
+_data = {
+&"flip": SubResource("Animation_xr68n")
+}
+
+[node name="TextureButton" type="TextureButton"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1otdf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_epus0")
+}
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
